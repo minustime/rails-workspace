@@ -4,8 +4,21 @@ Simple development environment to learn Rails.
 
 # Usage
 
-1. Build, run and access the container: `$ make code` 
-2. Code away!
+```
+$ docker run -it -v `pwd`/workspace:/opt/workspace minustime/rails-workspace zsh
+```
+
+_OR_
+
+1. Clone this repo:
+```
+$ git clone git@github.com:minustime/rails-workspace.git && cd rails-workspace
+```
+
+2. Build, run and access the container: 
+```
+$ make code
+```
 
 # Project layout
 

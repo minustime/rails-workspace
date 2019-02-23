@@ -54,4 +54,4 @@ COPY docker/init.vim /home/${USER}/.config/nvim/init.vim
 COPY docker/zshrc /home/${USER}/.zshrc
 COPY workspace ${WORKDIR}
 
-ENTRYPOINT ["sleep", "infinity"]
+CMD ["sleep", "infinity"]
