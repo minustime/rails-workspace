@@ -36,22 +36,25 @@ RUN add-apt-repository ppa:neovim-ppa/stable \
 # Install Rails
 RUN gem install rails --no-ri --no-rdoc
 
+WORKDIR ${WORKDIR}
+
+COPY docker/init.vim /home/${USER}/.config/nvim/init.vim
+COPY workspace ${WORKDIR}
+
 RUN chown -R ${USER}:${USER} /home/${USER}
 
 USER ${USER}
 
-# Install oh-my-zsh & neovim plugins
+# Install oh-my-zsh
 RUN cd /tmp \
     && curl -OL https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh \
     && /bin/bash install.sh \
-    && rm install.sh \
-    && curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
-    && nvim +PlugInstall +qall > /dev/null
+    && rm install.sh
 
-WORKDIR ${WORKDIR}
-
-COPY docker/init.vim /home/${USER}/.config/nvim/init.vim
 COPY docker/zshrc /home/${USER}/.zshrc
-COPY workspace ${WORKDIR}
+
+# Install neovim plugins
+RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+    && nvim +PlugInstall +qall > /dev/null
 
 CMD ["sleep", "infinity"]
