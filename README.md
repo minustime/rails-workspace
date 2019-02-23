@@ -1,8 +1,8 @@
-# Overview
+# Rails Workspace
 
 Simple development environment to learn Rails.
 
-# Usage
+## Usage
 
 ```
 $ docker run -it -v `pwd`/workspace:/opt/workspace minustime/rails-workspace zsh
@@ -20,9 +20,10 @@ $ git clone git@github.com:minustime/rails-workspace.git && cd rails-workspace
 $ make code
 ```
 
-# Project layout
+## Project layout
 
 ```
+.
 ├── Dockerfile
 ├── Makefile
 ├── README.md
@@ -33,7 +34,7 @@ $ make code
 └── workspace                # Workspace directory, mapped to container's /opt/workspace directory
 ```
 
-# Fun features
+## Fun features
 
 * Oh My Zsh + vim-mode
 * Neovim
