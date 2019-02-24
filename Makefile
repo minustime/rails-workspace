@@ -10,7 +10,7 @@ help:
 
 code: up explore
 up: 
-	@docker-compose up -d --build
+	@docker-compose up -d --build 
 explore:
 	@docker-compose exec workspace zsh 
 kill:
