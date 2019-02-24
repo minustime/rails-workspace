@@ -3,6 +3,8 @@ FROM minustime/with-vim:ubuntu-bionic
 LABEL maintainer="vic@minustime.com"
 
 ARG RUBY_VERSION=2.5.1
+ARG RAILS_VERSION=5.2.2
+
 ARG DEBIAN_FRONTEND=noninteractive
 ARG TERM=xterm
 ARG WORKDIR=/opt/workspace
@@ -18,6 +20,7 @@ RUN apt-get update \
        libyaml-dev \
        libsqlite3-dev \
        sqlite3 \
+       libmysqlclient-dev \
        libxml2-dev \
        libxslt1-dev \
        libcurl4-openssl-dev \
@@ -39,8 +42,11 @@ RUN git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-buil
     && echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.zshenv \
     && /bin/zsh -c 'source $HOME/.zshenv >> ~/.zshrc'
 
-# Install Rails
+# Install Ruby
 RUN /bin/zsh -c "rbenv install ${RUBY_VERSION}" \
-    && /bin/zsh -c "rbenv global ${RUBY_VERSION}"
+    && /bin/zsh -c "rbenv global ${RUBY_VERSION}" 
+
+# Install Rails
+RUN /bin/zsh -c "gem install rails -v ${RAILS_VERSION}"
 
 CMD ["sleep", "infinity"]
