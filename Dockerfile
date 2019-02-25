@@ -20,6 +20,7 @@ RUN apt-get update \
        libyaml-dev \
        libsqlite3-dev \
        sqlite3 \
+       mysql-client \
        libmysqlclient-dev \
        libxml2-dev \
        libxslt1-dev \
