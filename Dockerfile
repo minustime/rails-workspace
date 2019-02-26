@@ -31,23 +31,25 @@ RUN apt-get update \
        yarn \
     && rm -rf /var/lib/apt/lists/*
 
+SHELL ["/bin/zsh", "-c"]
+
 USER ${USER}
 
 RUN cd \
     && git clone https://github.com/rbenv/rbenv.git ~/.rbenv \
     && echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.zshenv \
     && echo 'eval "$(rbenv init -)"' >> ~/.zshenv \
-    && /bin/zsh -c 'source $HOME/.zshenv >> ~/.zshrc'
+    && source $HOME/.zshenv >> ~/.zshrc
 
 RUN git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build \
     && echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.zshenv \
-    && /bin/zsh -c 'source $HOME/.zshenv >> ~/.zshrc'
+    && source $HOME/.zshenv >> ~/.zshrc
 
 # Install Ruby
-RUN /bin/zsh -c "rbenv install ${RUBY_VERSION}" \
-    && /bin/zsh -c "rbenv global ${RUBY_VERSION}" 
+RUN rbenv install ${RUBY_VERSION} \
+    && rbenv global ${RUBY_VERSION}
 
 # Install Rails
-RUN /bin/zsh -c "gem install rails -v ${RAILS_VERSION}"
+RUN gem install rails -v ${RAILS_VERSION}
 
 CMD ["sleep", "infinity"]
